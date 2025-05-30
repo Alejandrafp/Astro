@@ -3,21 +3,28 @@ import MainLayouts from "../layouts/MainLayouts.astro";
 
 //Server only
 const name = "Universe";
+const initialTime = new Date().toLocaleTimeString();
+const currentYear = new Date().getFullYear();
 ---
 
-<MainLayouts title = "Home Page">
-	<h1>{name}</h1>
-	<p>Hora: {new Date().toLocaleTimeString()}</p>
-	<p id="current-time"></p>
+<MainLayouts title="Bienvenido a mi App Astro" description="Una app construida con Astro, rápida y moderna.">
+  <section>
+    <h1>Hola, {name} 🌌</h1>
+    <p>Hora inicial del servidor: {initialTime}</p>
+    <p id="current-time" aria-live="polite">Actualizando hora...</p>
+  </section>
 
-	<script>
-		const currentYear = new Date().getFullYear();
-		const footer = document.querySelector("footer") as HTMLElement;
-		const currentTimeParagraph = document.querySelector(
-			"#current-time",
-		) as HTMLParagraphElement;
+  <footer>
+    <p>&copy; {currentYear} - Todos los derechos reservados.</p>
+  </footer>
 
-		footer.innerText = `Año: ${currentYear}`;
-		currentTimeParagraph.innerText = `Hora real: ${new Date().toLocaleTimeString()}`;
-	</script>
+  <script type="module" is:inline>
+    const timeEl = document.querySelector("#current-time");
+    const updateTime = () => {
+      const now = new Date().toLocaleTimeString();
+      timeEl.textContent = `Hora actual (cliente): ${now}`;
+    };
+    updateTime();
+    setInterval(updateTime, 1000);
+  </script>
 </MainLayouts>

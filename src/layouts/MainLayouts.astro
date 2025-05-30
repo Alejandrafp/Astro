@@ -1,20 +1,31 @@
 ---
-import '../style/global.css'
+import "../style/global.css";
 import NavBar from "../components/NavBar.astro";
 
-const { title } = Astro.props;
+const { title, description } = Astro.props;
 ---
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <title>{title}</title>
-    </head>
-    <body>
-        <NavBar />
-        <slot />
-    </body>
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen flex flex-col font-sans bg-gray-50 text-gray-900">
+    <header>
+      <NavBar />
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-8">
+      <slot />
+    </main>
+
+    <footer class="text-center text-sm py-4 bg-gray-100 text-gray-600">
+      <slot name="footer" />
+    </footer>
+  </body>
 </html>
