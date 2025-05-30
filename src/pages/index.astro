@@ -1,16 +1,23 @@
 ---
+import MainLayouts from "../layouts/MainLayouts.astro";
 
+//Server only
+const name = "Universe";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<MainLayouts title = "Home Page">
+	<h1>{name}</h1>
+	<p>Hora: {new Date().toLocaleTimeString()}</p>
+	<p id="current-time"></p>
+
+	<script>
+		const currentYear = new Date().getFullYear();
+		const footer = document.querySelector("footer") as HTMLElement;
+		const currentTimeParagraph = document.querySelector(
+			"#current-time",
+		) as HTMLParagraphElement;
+
+		footer.innerText = `Año: ${currentYear}`;
+		currentTimeParagraph.innerText = `Hora real: ${new Date().toLocaleTimeString()}`;
+	</script>
+</MainLayouts>
